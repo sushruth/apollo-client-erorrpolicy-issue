@@ -11,16 +11,24 @@ const GET_DOGS = gql`
 `;
 
 const Compo1: React.FC = () => {
-  const { data, error } = useQuery(GET_DOGS);
-  console.log("[Compo1] This is the data - ", data, error);
+  const { data, error, loading, called } = useQuery(GET_DOGS);
+  
+  if(!loading && called) {
+    console.log("[Compo1] Without explicit errorPolicy - ", data, error?.message);
+  }
+  
   return null;
 };
 
 const Compo2: React.FC = () => {
-  const { data, error } = useQuery(GET_DOGS, {
+  const { data, error, loading, called } = useQuery(GET_DOGS, {
     errorPolicy: "all"
   });
-  console.log("[Compo2] This is the data - ", data, error);
+
+  if(!loading && called) {
+    console.log("[Compo2] With explicit errorPolicy - ", data, error?.message);
+  }
+  
   return null;
 };
 

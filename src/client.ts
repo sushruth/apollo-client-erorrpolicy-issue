@@ -2,7 +2,7 @@ import { SchemaLink } from "@apollo/link-schema";
 import { gql } from "@apollo/client";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 
-import { InMemoryCache, ApolloClient } from "@apollo/client/core";
+import { InMemoryCache, ApolloClient, ApolloLink } from "@apollo/client/core";
 
 const typeDefs = gql`
   type Query {
@@ -29,5 +29,5 @@ const apolloCache = new InMemoryCache();
 
 export const graphqlClient = new ApolloClient({
   cache: apolloCache,
-  link: new SchemaLink({ schema })
+  link: new SchemaLink({ schema }) as unknown as ApolloLink
 });
